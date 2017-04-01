@@ -1,24 +1,55 @@
 var fs = require("fs");
 var path = require("path");
 var controllerPath = path.join(__dirname, "./../controllers");
-var controllers = {};
+var controllers = require(path.join(__dirname, "./../config/controller_combiner.js"));
 var session = require("express-session");
-// var mongoose = require('mongoose');
-// var Content = mongoose.model('Content');
 
-fs.readdirSync(controllerPath).forEach(function(file) {
-  if(file.indexOf('.js') >= 0) {
-    controllers[file.slice(0, (file.length - 3))] = require(path.join(controllerPath, file));
+console.log(controllers);
+
+routeFunctions = {
+  get:{
+    '/' : controllers.index,
+    '/test_group_algo' : controllers.test_group_algo
+  },
+  post:
+  {
+    '/registration' : controllers.registration
   }
-});
+};
+
+function doForEveryRoute(req, res, callback)
+{
+  console.log("-----------------------------");
+  console.log(`Route: ${req.path}`);
+  console.log(`Session ID: ${req.sessionID}`);
+  console.log("-----------------------------");
+  console.log(callback);
+  try{
+    if(callback){
+      callback(req, res);
+    }
+    else{
+      console.log("Route doesn't exist.");
+    }
+  }catch(e){
+    console.log(e);
+  }
+}
 
 module.exports = function(app){
-	app.post('/dummies/:test', function(req, res){
-		console.log(req.body);
-		console.log(req.params.test);
-	});
 
-  app.get('/', controllers.controller_template.index);
-  app.get('/ajax_test', controllers.controller_template.ajax_test);
-	app.get('/test', controllers.controller_template.test);
+  app.get('*.*', function(req, res){
+    console.log(`file: ${req.path}`);
+    res.sendFile(req.path);
+  });
+
+  app.get('*', function(req, res){
+    //stuff for only get
+    doForEveryRoute(req, res, routeFunctions.get[req.path]);
+  });
+
+  app.post('*', function(req, res){
+    //stuff for only post
+    doForEveryRoute(req, res, routeFunctions.post[req.path]);
+  });
 }
