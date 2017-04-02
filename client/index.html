@@ -39,6 +39,8 @@
 					controller: "mainController"})
 				.when("/pool", {templateUrl: "pool.html",
 					controller: "mainController"})
+				.when("/finished_pool_demo", {templateUrl: "finished_pool_demo.html",
+					controller: "mainController"})
 				.when("/registration", {templateUrl: "registration.html",
 					controller: "mainController"})
 				.when("/profile", {templateUrl: "profile.html",
@@ -51,7 +53,13 @@
 				.otherwise({redirectTo: "/"});
 			});
 
-			var user = {};
+			var restaurantNames = [
+				"The Halal Guys",
+				"Buckhorn Grill",
+				"Tin Vietnamese Cuisine",
+				"The Lark Bar",
+				"Delicious Dim Sum"
+			];
 
 			app.controller("mainController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http)
 			{
@@ -88,8 +96,20 @@
 					time3.innerText = dummyData[n][2];
 					time4.innerText = dummyData[n][3];
 
+					$scope.restaurantName = restaurantNames[n];
+
 					restaurant.appendChild(times);
 				};
+
+				$scope.sendEmail = function(restaurant_name, group_time, email){
+					$http.post("/send_e", {restaurant_name: restaurant_name, group_time: group_time, email: email}).then(function(res){
+						window.location = "#!/";
+					});
+				};
+
+				$scope.joinPool = function(n){
+					
+				}
 
 				if(loggedIn == 0)
 				{
@@ -174,7 +194,7 @@
 	<body>
 	<div id="wrapper">
 		<div ng-app="app">
-		<a id="home_link" href="#!/">home</a> <div id="logout_and_profile">| <a href="#!/profile">Chris</a> | <a id="logout_link" href="#!/logout">log out</a></div>
+		<div id="logout_and_profile"><a id="home_link" href="#!/restaurants">Home</a> | <a href="#!/profile">Chris</a> | <a id="logout_link" href="#!/logout">Log Out</a></div>
 			<div ng-view="">
 			</div>
 		</div>

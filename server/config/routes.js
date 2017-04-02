@@ -14,6 +14,7 @@ routeFunctions = {
   },
   post:
   {
+      '/send_e' : controllers.send_email
   }
 };
 
