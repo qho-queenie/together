@@ -139,15 +139,16 @@
 					});
 				};
 
-				$scope.joinPool = function(n){
-					if(n == 3 && poolData.restaurantName == "Delicious Dim Sum"){
-						$scope.sendEmail(poolData.restaurantName, "Sun 1:00 pm", "chris.rollins.dev@gmail.com");
-						window.location = "#!/finished_pool_demo";
-					}else{
-						poolData.time = dummyData.times[restaurantNumbers[poolData.restaurantName]][n];
-						window.location = "#!/pool";
-					}
-				};
+
+				                $scope.joinPool = function(n){
+				                    poolData.time = dummyData.times[restaurantNumbers[poolData.restaurantName]][n];
+				                    if(n == 3 && poolData.restaurantName == "Delicious Dim Sum"){
+				                        $scope.sendEmail(poolData.restaurantName, "Sun 1:00 pm", "chris.rollins.dev@gmail.com");
+				                        window.location = "#!/finished_pool_demo";
+				                    }else{
+				                        window.location = "#!/pool";
+				                    }
+				                };
 
 				$scope.submitReg = function(form_data){
 					console.log(form_data);
@@ -186,6 +187,8 @@
        content: "";
        background: url("/image/bg1.jpg");
        background-repeat: no-repeat;
+			 background-attachment: fixed;
+   background-position: center;
        opacity: 0.5;
        top: 0;
        left: 0;
