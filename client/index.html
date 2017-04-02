@@ -65,6 +65,13 @@
 			{
 				$scope.rparam = $routeParams;
 
+				console.log($scope.first_name);
+
+				if($scope.first_name === undefined)
+					$scope.first_name = "Chris";
+
+				document.querySelector("#profile_link").innerText = $scope.first_name;
+
 				$scope.newUser = function(){
 					window.location = "#!/";
 				};
@@ -116,6 +123,11 @@
 					}
 				};
 
+				$scope.submitReg = function(reg_first_name){
+					console.log(reg_first_name);
+					document.querySelector("#profile_link").innerText = reg_first_name;
+				};
+
 				if(loggedIn == 0)
 				{
 					loggedIn = 1;
@@ -125,7 +137,7 @@
 				}
 
 				let logout_link = document.querySelector("#logout_and_profile");
-				if(window.location.hash === "#!/"){
+				if(window.location.hash === "#!/" || window.location.hash === "#!/registration"){
 					logout_link.style.display = "none";
 				}else{
 					logout_link.style.display = "inline-block";
@@ -199,7 +211,7 @@
 	<body>
 	<div id="wrapper">
 		<div ng-app="app">
-		<div id="logout_and_profile"><a id="home_link" href="#!/restaurants">Home</a> | <a href="#!/profile">Chris</a> | <a id="logout_link" href="#!/logout">Log Out</a></div>
+		<div id="logout_and_profile"><a id="home_link" href="#!/restaurants">Home</a> | <a id="profile_link" href="#!/profile"></a> | <a id="logout_link" href="#!/logout">Log Out</a></div>
 			<div ng-view="">
 			</div>
 		</div>

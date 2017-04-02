@@ -1,6 +1,6 @@
 <h1>Sign Up</h1>
-<form>
-  <label>First Name:</label><input type="text" name="first_name"><br>
+<form ng-submit="submitReg(reg_first_name)"> 
+<label>First Name:</label><input ng-model="reg_first_name" type="text" name="first_name"><br>
   <label>Last Name:</label><input type="text" name="last_name"><br>
   <label>Email:</label><input type="text" name="email"><br>
   <p>Your Attributes</p>
@@ -40,6 +40,7 @@
   <label>Age:</label><input type="text" name="age"><br>
   <hr>
   <label>Password:</label><input type="password" name="password">
-  <label>New Password:</label><input type="password" name="confirm_password">
-  <a href="#!/restaurants"><input type="submit" name="submit" value="submit"></a>
+  <label>New Password:</label><input type="password" name="confirm_password"><br><br><br>
+  <a href="#!/restaurants"><input type="submit" name="submit" value="Submit"></a>
 </form>
+<a href="#!/"><button>Cancel</button></a>
