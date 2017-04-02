@@ -3,7 +3,7 @@
 		<title>Together</title>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-route.min.js"></script>
-		
+
 		<script>
 			var app = angular.module("app", ["ngRoute"]);
 			var loggedIn = 0;
@@ -160,12 +160,25 @@
 		<style type="text/css">
 			*{font-family: "futura";}
 			#wrapper{
+        /*background-image: url("/image/bg1.jpg");*/
 				width: 100%;
 				height: 100vh;
 				margin: 0 auto;
 				display: flex;
 				justify-content: center;
 			}
+      #wrapper::after {
+       content: "";
+       background: url("/image/bg1.jpg");
+       background-repeat: no-repeat;
+       opacity: 0.5;
+       top: 0;
+       left: 0;
+       bottom: 0;
+       right: 0;
+       position: absolute;
+       z-index: -1;
+      }
 			pre{
 				display: inline-block;
 			}
