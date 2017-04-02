@@ -9,11 +9,11 @@ console.log(controllers);
 routeFunctions = {
   get:{
     '/' : controllers.index,
+    '/home' : controllers.home,
     '/test_group_algo' : controllers.test_group_algo
   },
   post:
   {
-    '/registration' : controllers.registration
   }
 };
 

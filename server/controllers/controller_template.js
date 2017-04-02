@@ -16,6 +16,13 @@ module.exports = {
 			res.render('/index.html');
 		// });
 	},
+	
+	home: function(req, res){
+		//response inside callback
+		// models.model_template.test(req, res, function(){
+			res.render('/home.html');
+		// });
+	},
 
 	ajax_test: function(req, res){
 		// models.model_template.test(req, res, function(){

@@ -1,23 +1,164 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Together</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+<html ng-app="app">
+	<head>
+		<title>Together</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-route.min.js"></script>
+		
+		<script>
+			var app = angular.module("app", ["ngRoute"]);
+			var loggedIn = 0;
 
-    <!-- Custom Fonts -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+			function validationError(message)
+			{
+				var valErr = document.createElement("p");
+				valErr.innerText = "Validation Error: " + message;
+				valErr.className = "valErr popupMsg";
+				document.body.appendChild(valErr);
+				setTimeout(function(){valErr.style.opacity = 0;}, 100);
+				setTimeout(function(){valErr.remove()}, 5000);
+				console.log("Validation Error:", message);
+			}
 
-    <!-- Plugin CSS -->
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+			function success(message)
+			{
+				var success = document.createElement("p");
+				success.innerText = message;
+				success.className = "successMsg popupMsg";
+				document.body.appendChild(success);
+				setTimeout(function(){success.style.opacity = 0;}, 100);
+				setTimeout(function(){success.remove()}, 5000);
+				console.log(message);
+			}
 
-    <!-- Theme CSS -->
-    <link href="css/creative.css" rel="stylesheet">
-  </head>
-  <body>
-    <p>Together</p>
-  </body>
+			app.config(function ($routeProvider)
+			{
+				$routeProvider
+				.when("/", {templateUrl: "login_reg.html",
+					controller: "mainController"})
+				.when("/restaurants", {templateUrl: "restaurants.html",
+					controller: "mainController"})
+				.when("/pool", {templateUrl: "pool.html",
+					controller: "mainController"})
+				.when("/registration", {templateUrl: "registration.html",
+					controller: "mainController"})
+				.when("/profile", {templateUrl: "profile.html",
+					controller: "mainController"})
+				.when("/logout", {redirectTo: function(){
+					loggedIn = 0;
+						return "/";
+					}
+				})
+				.otherwise({redirectTo: "/"});
+			});
+
+			var user = {};
+
+			app.controller("mainController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http)
+			{
+				$scope.rparam = $routeParams;
+				$scope.answers = [];
+				$scope.email = user.email;
+				$scope.first_name = "profile";
+
+				$scope.newUser = function(){
+					window.location = "#!/";
+				};
+
+				$scope.loadRestaurants = function(){
+					$http.get("restaurants").then(function(res){
+						console.log("/restaurants response data:", res.data);
+						$scope.restaurants = res.data;
+					});
+				};
+
+				if(loggedIn == 0)
+				{
+					loggedIn = 1;
+					//window.location = "#!/";
+				}
+				else if(loggedIn === 2){
+					$scope.loadRestaurants();
+				}
+
+				let logout_link = document.querySelector("#logout_and_profile");
+				if(window.location.hash === "#!/"){
+					logout_link.style.display = "none";
+				}else{
+					logout_link.style.display = "inline-block";
+				}
+
+			}]);
+		</script>
+		<style type="text/css">
+			*{font-family: "futura";}
+			#wrapper{
+				width: 100%;
+				margin: 0 auto;
+			}
+			.popupMsg{
+				padding: 20px;
+				background-color: #fff;
+				border: 1px #999 solid;
+				pointer-events: none;
+			}
+			.valErr
+			{
+				width: 100%;
+				position: fixed;
+				top: 50%;
+				color: #dd3333;
+				font-size: 40px;
+				transition: opacity 3000ms;
+				text-align: center;
+			}
+			.successMsg{
+				width: 100%;
+				position: fixed;
+				top: 20%;
+				color: #33dd33;
+				font-size: 40px;
+				transition: opacity 3000ms;
+				text-align: center;
+			}
+			.result
+			{
+				width: 100%;
+				position: fixed;
+				top: 20%;
+				color: #3333dd;
+				font-size: 40px;
+				transition: opacity 15000ms;
+				text-align: center;
+			}
+			.button
+			{
+				width: 50px;
+				height: 20px;
+				background-color: #ddddee;
+				border-radius: 5px;
+				cursor: default;
+				user-select: none;
+				text-align: center;
+				color: #222222;
+			}
+			.button:hover
+			{
+				background-color: #eeeeee;
+			}
+			.button:active
+			{
+				background-color: #000000;
+			}
+		</style>
+
+	</head>
+	<body>
+	<div id="wrapper">
+		<div ng-app="app">
+		<a id="home_link" href="#!/">home</a> <div id="logout_and_profile">| <a href="#!/profile">profile</a> | <a id="logout_link" href="#!/logout">log out</a></div>
+			<div ng-view="">
+			</div>
+		</div>
+	</div>
+	</body>
 </html>
