@@ -56,9 +56,6 @@
 			app.controller("mainController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http)
 			{
 				$scope.rparam = $routeParams;
-				$scope.answers = [];
-				$scope.email = user.email;
-				$scope.first_name = "profile";
 
 				$scope.newUser = function(){
 					window.location = "#!/";
@@ -71,10 +68,32 @@
 					});
 				};
 
+				$scope.showRestaurantTimes = function(n){
+					let dummyData = [
+						["Sat 5:00 pm", "Sat 6:00 pm", "Sun 6:00 pm", "Sun 7:00 pm"],
+						["Mon 5:00 pm", "Tue 6:00 pm", "Wed 6:00 pm", "Thu 7:00 pm"],
+						["Sun 3:00 pm", "Sun 4:00 pm", "Sun 5:00 pm", "Sun 6:00 pm"],
+						["Mon 12:00 pm", "Mon 2:00 pm", "Mon 3:00 pm", "Tue 7:00 pm"],
+						["Sat 12:00 pm", "Sat 1:00 pm", "Sun 12:00 pm", "Sun 1:00 pm"]
+					];
+					let restaurant = document.querySelector("#restaurantTimes" + n);
+					let time1 = document.querySelector("#time1");
+					let time2 = document.querySelector("#time2");
+					let time3 = document.querySelector("#time3");
+					let time4 = document.querySelector("#time4");
+					let times = document.querySelector("#times");
+
+					time1.innerText = dummyData[n][0];
+					time2.innerText = dummyData[n][1];
+					time3.innerText = dummyData[n][2];
+					time4.innerText = dummyData[n][3];
+
+					restaurant.appendChild(times);
+				};
+
 				if(loggedIn == 0)
 				{
 					loggedIn = 1;
-					//window.location = "#!/";
 				}
 				else if(loggedIn === 2){
 					$scope.loadRestaurants();
@@ -155,7 +174,7 @@
 	<body>
 	<div id="wrapper">
 		<div ng-app="app">
-		<a id="home_link" href="#!/">home</a> <div id="logout_and_profile">| <a href="#!/profile">profile</a> | <a id="logout_link" href="#!/logout">log out</a></div>
+		<a id="home_link" href="#!/">home</a> <div id="logout_and_profile">| <a href="#!/profile">Chris</a> | <a id="logout_link" href="#!/logout">log out</a></div>
 			<div ng-view="">
 			</div>
 		</div>
