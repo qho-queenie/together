@@ -115,6 +115,7 @@
 					poolData.peopleInPool = ~~((Math.random() * 8) + 2);
 					poolData.peopleNeededForPool = 15;
 
+					times.style.opacity = "1.0";
 					restaurant.appendChild(times);
 				};
 
@@ -126,7 +127,7 @@
 
 				$scope.joinPool = function(n){
 					if(n == 3 && poolData.restaurantName == "Delicious Dim Sum"){
-						$scope.sendEmail($scope.restaurantName, "Sun 1:00 pm", "chris.rollins.dev@gmail.com");
+						$scope.sendEmail(poolData.restaurantName, "Sun 1:00 pm", "chris.rollins.dev@gmail.com");
 						window.location = "#!/finished_pool_demo";
 					}else{
 						window.location = "#!/pool";
@@ -149,9 +150,9 @@
 
 				let logout_link = document.querySelector("#logout_and_profile");
 				if(window.location.hash === "#!/" || window.location.hash === "#!/registration"){
-					logout_link.style.display = "none";
+					logout_link.style.opacity = "0.0";
 				}else{
-					logout_link.style.display = "inline-block";
+					logout_link.style.opacity = "1.0";
 				}
 
 			}]);
@@ -162,6 +163,11 @@
 				width: 100%;
 				height: 100vh;
 				margin: 0 auto;
+				display: flex;
+				justify-content: center;
+			}
+			pre{
+				display: inline-block;
 			}
 			.popupMsg{
 				padding: 20px;

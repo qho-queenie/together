@@ -1,10 +1,55 @@
 <h1>Available Restaurants</h1>
-<p>San Francisco <a href="/!#">change area</a></p>
-<div>The Halal Guys<button ng-click="showRestaurantTimes(0)">join</button><span id="restaurantTimes0"><span></div>
-<div>Buckhorn Grill<button ng-click="showRestaurantTimes(1)">join</button><span id="restaurantTimes1"><span></div>
-<div>Tin Vietnamese Cuisine<button ng-click="showRestaurantTimes(2)">join</button><span id="restaurantTimes2"><span></div>
-<div>The Lark Bar<button ng-click="showRestaurantTimes(3)">join</button><span id="restaurantTimes3"><span></div>
-<div>Delicious Dim Sum<button ng-click="showRestaurantTimes(4)">join</button><span id="restaurantTimes4"><span></div>
+<span>San Francisco <a href="/!#">change area</a></span>
+<br><br><br>
+
+<style type="text/css">
+	.restaurantTimes{
+		min-width: 35vw;
+	}
+	.joinButton{
+		margin-left: 2vw;
+		margin-right: 2vw;
+	}
+	#times{
+		opacity: 0;
+	}
+	#times *{
+		margin-left: 10px;
+	}
+</style>
+
+<table>
+<!--   <tr>
+    <th></th>
+    <th></th>
+  </tr> -->
+  <tr>
+    <td>The Halal Guys</td>
+    <td><button class="joinButton" ng-click="showRestaurantTimes(0)">join</button></td>
+    <td class="restaurantTimes"><span id="restaurantTimes0"></span></td>
+  </tr>
+  <tr>
+    <td>Buckhorn Grill</td>
+    <td><button class="joinButton" ng-click="showRestaurantTimes(1)">join</button></td>
+    <td class="restaurantTimes"><span id="restaurantTimes1"></span></td>
+  </tr>
+  <tr>
+    <td>Tin Vietnamese Cuisine</td>
+    <td><button class="joinButton" ng-click="showRestaurantTimes(2)">join</button></td>
+    <td class="restaurantTimes"><span id="restaurantTimes2"></span></td>
+  </tr>
+  <tr>
+    <td>The Lark Bar</td>
+    <td><button class="joinButton" ng-click="showRestaurantTimes(3)">join</button></td>
+    <td class="restaurantTimes"><span id="restaurantTimes3"></span></td>
+  </tr>
+  <tr>
+    <td>Delicious Dim Sum</td>
+    <td><button class="joinButton" ng-click="showRestaurantTimes(4)">join</button></td>
+    <td class="restaurantTimes"><span id="restaurantTimes4"></span></td>
+  </tr>
+</table>
+
 
 <span id="times">
 <a ng-click="joinPool(0)" href="" id="time1"></a>
