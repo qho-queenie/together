@@ -61,16 +61,22 @@
 				"Delicious Dim Sum"
 			];
 
+			var first_name = undefined;
+			var poolData = {};
+
 			app.controller("mainController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http)
 			{
 				$scope.rparam = $routeParams;
+				$scope.restaurantName = poolData.restaurantName;
+				$scope.peopleInPool = poolData.peopleInPool;
+				$scope.peopleNeededForPool = poolData.peopleNeededForPool;
 
-				console.log($scope.first_name);
+				console.log(first_name);
 
-				if($scope.first_name === undefined)
-					$scope.first_name = "Chris";
+				if(first_name === undefined)
+					first_name = "Chris";
 
-				document.querySelector("#profile_link").innerText = $scope.first_name;
+				document.querySelector("#profile_link").innerText = first_name;
 
 				$scope.newUser = function(){
 					window.location = "#!/";
@@ -84,13 +90,15 @@
 				};
 
 				$scope.showRestaurantTimes = function(n){
-					let dummyData = [
-						["Sat 5:00 pm", "Sat 6:00 pm", "Sun 6:00 pm", "Sun 7:00 pm"],
-						["Mon 5:00 pm", "Tue 6:00 pm", "Wed 6:00 pm", "Thu 7:00 pm"],
-						["Sun 3:00 pm", "Sun 4:00 pm", "Sun 5:00 pm", "Sun 6:00 pm"],
-						["Mon 12:00 pm", "Mon 2:00 pm", "Mon 3:00 pm", "Tue 7:00 pm"],
-						["Sat 12:00 pm", "Sat 1:00 pm", "Sun 12:00 pm", "Sun 1:00 pm"]
-					];
+					let dummyData = {
+						times: [
+							["Sat 5:00 pm", "Sat 6:00 pm", "Sun 6:00 pm", "Sun 7:00 pm"],
+							["Mon 5:00 pm", "Tue 6:00 pm", "Wed 6:00 pm", "Thu 7:00 pm"],
+							["Sun 3:00 pm", "Sun 4:00 pm", "Sun 5:00 pm", "Sun 6:00 pm"],
+							["Mon 12:00 pm", "Mon 2:00 pm", "Mon 3:00 pm", "Tue 7:00 pm"],
+							["Sat 12:00 pm", "Sat 1:00 pm", "Sun 12:00 pm", "Sun 1:00 pm"]
+						]
+					};
 					let restaurant = document.querySelector("#restaurantTimes" + n);
 					let time1 = document.querySelector("#time1");
 					let time2 = document.querySelector("#time2");
@@ -98,12 +106,14 @@
 					let time4 = document.querySelector("#time4");
 					let times = document.querySelector("#times");
 
-					time1.innerText = dummyData[n][0];
-					time2.innerText = dummyData[n][1];
-					time3.innerText = dummyData[n][2];
-					time4.innerText = dummyData[n][3];
+					time1.innerText = dummyData.times[n][0];
+					time2.innerText = dummyData.times[n][1];
+					time3.innerText = dummyData.times[n][2];
+					time4.innerText = dummyData.times[n][3];
 
-					$scope.restaurantName = restaurantNames[n];
+					poolData.restaurantName = restaurantNames[n];
+					poolData.peopleInPool = ~~((Math.random() * 8) + 2);
+					poolData.peopleNeededForPool = 15;
 
 					restaurant.appendChild(times);
 				};
@@ -115,7 +125,7 @@
 				};
 
 				$scope.joinPool = function(n){
-					if(n == 3 && $scope.restaurantName == "Delicious Dim Sum"){
+					if(n == 3 && poolData.restaurantName == "Delicious Dim Sum"){
 						$scope.sendEmail($scope.restaurantName, "Sun 1:00 pm", "chris.rollins.dev@gmail.com");
 						window.location = "#!/finished_pool_demo";
 					}else{
@@ -123,9 +133,10 @@
 					}
 				};
 
-				$scope.submitReg = function(reg_first_name){
-					console.log(reg_first_name);
-					document.querySelector("#profile_link").innerText = reg_first_name;
+				$scope.submitReg = function(form_data){
+					console.log(form_data);
+					first_name = form_data.first_name;
+					window.location = "#!/restaurants";
 				};
 
 				if(loggedIn == 0)
@@ -149,6 +160,7 @@
 			*{font-family: "futura";}
 			#wrapper{
 				width: 100%;
+				height: 100vh;
 				margin: 0 auto;
 			}
 			.popupMsg{

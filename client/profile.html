@@ -1,9 +1,11 @@
 <h1>Edit Profile</h1>
-<form ng-submit="submitReg()">
-  <label>First Name:</label><input ng-model="first_name" type="text" name="first_name"><br>
-  <label>Last Name:</label><input type="text" name="last_name">
-  <label>Email:</label><input type="text" name="email">
-    <p>Your Attributes</p>
+<h1>Sign Up</h1>
+  <label>First Name:</label><input ng-model="form_data.first_name" type="text" name="first_name"><br>
+  <label>Last Name:</label><input type="text" name="last_name"><br>
+  <label>Email:</label><input type="text" name="email"><br>
+  <h3>Your Attributes</h3>
+  This information is completely private, which means we don't sell it, and we don't share it with our users.<br>
+  Together only uses this information for group matchmaking purposes to ensure that you meet individuals with different backgrounds.<br>
   <hr>
   <label>Race:</label><select>
   	<option value=""></option>
@@ -14,20 +16,20 @@
   	<option value="Native American">Native American</option>
   	<option value="Other">Other</option>
   </select><br>
-  Hispanic Origin: <input type="checkbox" value="Hispanic"><hr>
+  <label>Hispanic</label> Origin: <input type="checkbox" value="Hispanic"><br>
    <label>Gender:</label><select>
   	<option value=""></option>
   	<option value="Male">Male</option>
   	<option value="Female">Female</option>
   	<option value="Other">Other</option>
-  </select>
+  </select><br>
   <label>Sexual Orientation:</label><select>
   	<option value=""></option>
   	<option value="Heterosexual">Heterosexual</option>
   	<option value="Homosexual">Homosexual</option>
   	<option value="Bisexual">Bisexual</option>
   	<option value="Other">Other</option>
-  </select>
+  </select><br>
   <label>Religion:</label><select>
   	<option value=""></option>
   	<option value="Christian">Christian</option>
@@ -36,10 +38,10 @@
   	<option value="Buddhism">Buddhist</option>
   	<option value="Muslim">Muslim</option>
   	<option value="Other">Other</option>
-  </select>
+  </select><br>
   <label>Age:</label><input type="text" name="age"><br>
-  <hr>
+  <hr><br>
   <label>New Password:</label><input type="password" name="password">
-  <label>Confirm New Password:</label><input type="password" name="confirm_password">
-  <a href="#!/restaurants"><input type="submit" name="submit" value="submit"></a>
-</form>
+  <label>Confirm Password:</label><input type="password" name="confirm_password"><br><br><br>
+<button ng-click="submitReg(form_data)">Submit</button>
+<a href="#!/"><button>Cancel</button></a>
