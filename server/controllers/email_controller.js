@@ -14,6 +14,7 @@ var transporter = nodemailer.createTransport(`smtps://the.app.together%40gmail.c
 
 module.exports = {
 	send_email: function(req, res){
+		console.log(req.body.email);
 		var mailOptions = {
 			from: '"Together" <the.app.together@gmail.com>', // sender address
 			to: req.body.email, // list of receivers
@@ -21,7 +22,7 @@ module.exports = {
 			text: "", // plaintext body
 			html: `<h2>You've been assigned a group for ${req.body.restaurant_name} at ${req.body.group_time}</h2>`// html body
 		};
-		nodemailer.sendMail(mailOptions, function(error, info){
+		transporter.sendMail(mailOptions, function(error, info){
 			if(error){
 				return console.log(error);
 			}
