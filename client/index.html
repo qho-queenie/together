@@ -53,13 +53,29 @@
 				.otherwise({redirectTo: "/"});
 			});
 
-			var restaurantNames = [
+			let restaurantNames = [
 				"The Halal Guys",
 				"Buckhorn Grill",
 				"Tin Vietnamese Cuisine",
 				"The Lark Bar",
 				"Delicious Dim Sum"
 			];
+			let restaurantNumbers = {
+				"The Halal Guys": 0,
+				"Buckhorn Grill": 1,
+				"Tin Vietnamese Cuisine": 2,
+				"The Lark Bar": 3,
+				"Delicious Dim Sum": 4
+			}
+			let dummyData = {
+				times: [
+					["Sat 5:00 pm", "Sat 6:00 pm", "Sun 6:00 pm", "Sun 7:00 pm"],
+					["Mon 5:00 pm", "Tue 6:00 pm", "Wed 6:00 pm", "Thu 7:00 pm"],
+					["Sun 3:00 pm", "Sun 4:00 pm", "Sun 5:00 pm", "Sun 6:00 pm"],
+					["Mon 12:00 pm", "Mon 2:00 pm", "Mon 3:00 pm", "Tue 7:00 pm"],
+					["Sat 12:00 pm", "Sat 1:00 pm", "Sun 12:00 pm", "Sun 1:00 pm"]
+				]
+			};
 
 			var first_name = undefined;
 			var poolData = {};
@@ -67,9 +83,15 @@
 			app.controller("mainController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http)
 			{
 				$scope.rparam = $routeParams;
-				$scope.restaurantName = poolData.restaurantName;
-				$scope.peopleInPool = poolData.peopleInPool;
-				$scope.peopleNeededForPool = poolData.peopleNeededForPool;
+
+				for(let key in poolData){
+					$scope[key] = poolData[key];
+				}
+
+				// $scope.restaurantName = poolData.restaurantName;
+				// $scope.peopleInPool = poolData.peopleInPool;
+				// $scope.peopleNeededForPool = poolData.peopleNeededForPool;
+				// $scope.time = poolData.time;
 
 				console.log(first_name);
 
@@ -90,15 +112,7 @@
 				};
 
 				$scope.showRestaurantTimes = function(n){
-					let dummyData = {
-						times: [
-							["Sat 5:00 pm", "Sat 6:00 pm", "Sun 6:00 pm", "Sun 7:00 pm"],
-							["Mon 5:00 pm", "Tue 6:00 pm", "Wed 6:00 pm", "Thu 7:00 pm"],
-							["Sun 3:00 pm", "Sun 4:00 pm", "Sun 5:00 pm", "Sun 6:00 pm"],
-							["Mon 12:00 pm", "Mon 2:00 pm", "Mon 3:00 pm", "Tue 7:00 pm"],
-							["Sat 12:00 pm", "Sat 1:00 pm", "Sun 12:00 pm", "Sun 1:00 pm"]
-						]
-					};
+
 					let restaurant = document.querySelector("#restaurantTimes" + n);
 					let time1 = document.querySelector("#time1");
 					let time2 = document.querySelector("#time2");
@@ -130,6 +144,7 @@
 						$scope.sendEmail(poolData.restaurantName, "Sun 1:00 pm", "chris.rollins.dev@gmail.com");
 						window.location = "#!/finished_pool_demo";
 					}else{
+						poolData.time = dummyData.times[restaurantNumbers[poolData.restaurantName]][n];
 						window.location = "#!/pool";
 					}
 				};
