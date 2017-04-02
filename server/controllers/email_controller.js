@@ -20,7 +20,7 @@ module.exports = {
 			to: req.body.email, // list of receivers
 			subject: "Together App - Your Group", // Subject line
 			text: "", // plaintext body
-			html: `<h2>You've been assigned a group for ${req.body.restaurant_name} at ${req.body.group_time}</h2><br><img src="http://i.imgur.com/hOqykVh.png">`// html body
+			html: `<h2>You've been assigned a group for ${req.body.restaurant_name} at ${req.body.group_time}</h2><br><p>Here is your group coupon. Be sure to bring it with you!</p><img src="http://i.imgur.com/hOqykVh.png">`// html body
 		};
 		transporter.sendMail(mailOptions, function(error, info){
 			if(error){
